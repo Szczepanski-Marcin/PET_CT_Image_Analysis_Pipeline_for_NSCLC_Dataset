@@ -1,66 +1,113 @@
-# NSCLC PET/CT Tumor Analysis
+# PET/CT Tumor Segmentation and Quantitative Analysis in NSCLC
 
-## Overview
+## 📌 Overview
 
-This project demonstrates a workflow for **lung and tumor segmentation**, feature extraction, and visualization from the **NSCLC Radiogenomics dataset** (TCIA). It compares classical threshold-based segmentation with deep learning-based segmentation using **pre-trained U-Net / lungmask**.
+This project presents a computational pipeline for **lung and tumor segmentation** in PET/CT imaging, applied to the NSCLC Radiogenomics dataset from TCIA.
 
-The goal is to provide a **portfolio-ready Python/Jupyter workflow** for PET/CT analysis in oncology imaging.
+The goal is to simulate a **real-world medical imaging workflow**, including:
+- DICOM data handling
+- Automated segmentation
+- Quantitative PET analysis
+- Visualization of results
 
----
-
-## 📁 Dataset
-
-- Source: [TCIA NSCLC Radiogenomics](https://www.cancerimagingarchive.net/analysis-result/nsclc-radiogenomics-stanford/)
-- Data includes:
-  - PET and CT DICOM scans
-  - Some clinical and genomic metadata (optional)
-- For MacBook Air-friendly workflow, **subset of patients** used (e.g., 5–10)
+This project emphasizes **robustness under limited computational resources (MacBook Air M3)** and practical handling of imperfect medical data.
 
 ---
 
-## ⚙️ Pipeline
+## 🧠 Clinical Context
 
-1. **DICOM Loading**
-   - Recursive loading of patient folders
-   - Normalization of PET/CT volumes
+Non-Small Cell Lung Cancer (NSCLC) accounts for ~85% of lung cancer cases. PET/CT imaging plays a critical role in:
 
-2. **Segmentation**
-   - **Option A: Classical threshold + lung mask**  
-     Fallback if lungmask U-Net fails.
-   - **Option B: Lungmask pre-trained U-Net**  
-     Performs automatic 2D slice-wise lung segmentation.
+- Tumor detection
+- Treatment planning
+- Response evaluation
 
-3. **Tumor Detection**
-   - Threshold-based SUV detection inside segmented lungs
-   - Computed metrics:
-     - Tumor volume (mm³)
-     - SUVmax
-     - SUVmean
+Quantitative metrics such as **SUVmax and SUVmean** are commonly used in clinical decision-making.
 
-4. **Visualization**
-   - Overlay lung and tumor masks on PET slices
-   - Representative slices shown per patient
-
-5. **Quantitative Summary**
-   - Tabulated metrics per patient
-   - Comparison between classical vs. U-Net where applicable
+Recent research shows PET/CT imaging can also support **non-invasive tumor characterization and classification** :contentReference[oaicite:1]{index=1}
 
 ---
 
-## 📊 Example Output
+## ⚙️ Methodology
 
-| Patient | Tumor Volume (mm³) | SUVmax | SUVmean | Notes |
-|---------|------------------|--------|---------|-------|
-| R01-001 | 0                | 0      | 0       | Fallback mask used |
+### 1. Data Processing
+- Recursive loading of DICOM files
+- Handling inconsistent folder structures
+- Slice normalization
 
-- ⚠️ Lungmask failed for some patients → fallback mask applied
-- Volumes/SUVs may be zero if tumor not detected or thresholds too strict
+### 2. Lung Segmentation
+Two approaches were implemented:
+
+- **Deep Learning (lungmask U-Net)**
+  - Pre-trained model
+  - Automatic segmentation
+- **Fallback Classical Method**
+  - Threshold-based segmentation
+  - Used when deep learning fails
+
+### 3. Tumor Detection
+- Adaptive thresholding within lung regions
+- Based on PET intensity distribution
+- No manual annotations required
+
+### 4. Feature Extraction
+For detected tumor regions:
+- Tumor Volume (mm³)
+- SUVmax
+- SUVmean
+
+### 5. Visualization
+- Slice overlays:
+  - Lung mask (blue)
+  - Tumor candidates (red)
+- Histogram of PET intensity distribution
+- Saved figures for reproducibility
 
 ---
 
-## 🛠️ Requirements
+## 📊 Results
 
-- Python 3.10+  
-- Packages:
-  ```bash
-  pip install numpy matplotlib pydicom torch torchvision lungmask SimpleITK pandas ipywidgets
+Example output:
+
+| Patient | Tumor Volume (mm³) | SUVmax | SUVmean |
+|--------|--------------------|--------|---------|
+| R01-010 | 0 | 0 | 0 |
+
+### Observations:
+- Lung segmentation succeeded using fallback when deep model failed
+- Tumor detection highly sensitive to threshold selection
+- Some scans did not contain detectable high-SUV regions
+
+---
+
+## 🖼️ Visualization
+
+### Segmentation Overlay
+- Blue: Lung mask  
+- Red: Tumor candidate  
+
+![Example](outputs/figures/sample_overlay.png)
+
+---
+
+## ⚠️ Limitations
+
+- No ground-truth tumor annotations available
+- Threshold-based tumor detection may miss subtle lesions
+- Lungmask model may fail on some scans (handled via fallback)
+- Limited dataset size due to hardware constraints
+
+---
+
+## 💻 Technical Stack
+
+- Python (3.10)
+- NumPy, Pandas
+- Matplotlib
+- PyDICOM
+- SimpleITK
+- lungmask (pre-trained U-Net)
+
+---
+
+## 📁 Project Structure
