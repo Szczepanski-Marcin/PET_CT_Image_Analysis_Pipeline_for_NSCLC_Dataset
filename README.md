@@ -1,100 +1,136 @@
-# PET/CT Tumor Segmentation and Quantitative Analysis in NSCLC
+# PET/CT Tumor Segmentation and Quantitative Analysis (NSCLC)
 
 ## 📌 Overview
 
-This project presents a computational pipeline for **lung and tumor segmentation** in PET/CT imaging, applied to the NSCLC Radiogenomics dataset from TCIA.
+This project implements a full pipeline for **lung segmentation, tumor candidate detection, and quantitative PET analysis** using the NSCLC Radiogenomics dataset.
 
-The goal is to simulate a **real-world medical imaging workflow**, including:
-- DICOM data handling
-- Automated segmentation
-- Quantitative PET analysis
-- Visualization of results
-
-This project emphasizes **robustness under limited computational resources (MacBook Air M3)** and practical handling of imperfect medical data.
+The goal was to simulate a **real-world medical imaging workflow** under **limited computational resources (MacBook Air M3)**, focusing on robustness, automation, and reproducibility.
 
 ---
 
-## 🧠 Clinical Context
+## 🧠 Motivation
 
-Non-Small Cell Lung Cancer (NSCLC) accounts for ~85% of lung cancer cases. PET/CT imaging plays a critical role in:
+PET/CT imaging is widely used in lung cancer for:
+- Tumor detection  
+- Treatment planning  
+- Monitoring therapy response  
 
-- Tumor detection
-- Treatment planning
-- Response evaluation
+Key quantitative metrics such as:
+- **SUVmax**
+- **SUVmean**
+- **Tumor volume**
 
-Quantitative metrics such as **SUVmax and SUVmean** are commonly used in clinical decision-making.
+are essential for clinical decision-making.
 
-Recent research shows PET/CT imaging can also support **non-invasive tumor characterization and classification** :contentReference[oaicite:1]{index=1}
+This project explores how these metrics can be extracted **without manual annotations**, using automated methods.
 
 ---
 
-## ⚙️ Methodology
+## ⚙️ Pipeline
 
-### 1. Data Processing
-- Recursive loading of DICOM files
-- Handling inconsistent folder structures
-- Slice normalization
+### 1. Data Handling
+- Recursive loading of DICOM files from complex folder structures
+- Automatic detection of PET scans among multiple modalities
+- Normalization of voxel intensities
+
+---
 
 ### 2. Lung Segmentation
+
 Two approaches were implemented:
 
-- **Deep Learning (lungmask U-Net)**
-  - Pre-trained model
-  - Automatic segmentation
-- **Fallback Classical Method**
-  - Threshold-based segmentation
-  - Used when deep learning fails
+#### 🧠 Deep Learning (lungmask U-Net)
+- Pre-trained model for lung segmentation
+- Runs slice-wise inference
 
-### 3. Tumor Detection
-- Adaptive thresholding within lung regions
-- Based on PET intensity distribution
-- No manual annotations required
+#### ⚠️ Fallback Method (Classical)
+- Threshold-based segmentation
+- Automatically triggered when deep model fails
 
-### 4. Feature Extraction
-For detected tumor regions:
-- Tumor Volume (mm³)
-- SUVmax
-- SUVmean
+Example issue encountered:
+⚠️ lungmask failed — using fallback segmentation
 
-### 5. Visualization
-- Slice overlays:
-  - Lung mask (blue)
-  - Tumor candidates (red)
-- Histogram of PET intensity distribution
-- Saved figures for reproducibility
+This ensured the pipeline remained **robust and fully automated**.
 
 ---
 
-## 📊 Results
+### 3. Tumor Candidate Detection
+
+- Adaptive thresholding applied within lung regions
+- Threshold computed from PET intensity distribution
+- Designed to approximate high-SUV tumor regions
+
+Example:
+Adaptive threshold (lung-only): 0.39
+
+---
+
+### 4. Quantitative Feature Extraction
+
+For detected tumor regions:
+
+- **Tumor Volume (mm³)**
+- **SUVmax**
+- **SUVmean**
 
 Example output:
+Volume: 0
+SUVmax: 0
+SUVmean: 0
 
-| Patient | Tumor Volume (mm³) | SUVmax | SUVmean |
-|--------|--------------------|--------|---------|
-| R01-010 | 0 | 0 | 0 |
-
-### Observations:
-- Lung segmentation succeeded using fallback when deep model failed
-- Tumor detection highly sensitive to threshold selection
-- Some scans did not contain detectable high-SUV regions
 
 ---
 
-## 🖼️ Visualization
+### 5. Visualization
 
-### Segmentation Overlay
+The project includes:
+
+- Overlay visualization:
+  - Lung mask (blue)
+  - Tumor candidates (red)
+- Multi-slice views across the volume
+- PET intensity histogram inside lungs
+
+Saved outputs:
+- Figures (`outputs/figures/`)
+- Tables (`outputs/tables/`)
+
+---
+
+## 📊 Results & Observations
+
+### Key Findings
+
+- Lung segmentation worked reliably using fallback when deep learning failed
+- Tumor detection was **highly sensitive to threshold selection**
+- Several scans resulted in:
+  - No detected tumor regions
+  - SUV metrics equal to zero
+
+### Interpretation
+
+This does **not indicate failure**, but highlights:
+
+- PET intensity variability across scans
+- Lack of ground-truth tumor annotations
+- Limitations of simple threshold-based detection
+
+---
+
+## 🖼️ Example Visualization
+
 - Blue: Lung mask  
 - Red: Tumor candidate  
 
-![Example](outputs/figures/sample_overlay.png)
+![Example](outputs/figures/R01-010_overlay.png)
 
 ---
 
 ## ⚠️ Limitations
 
-- No ground-truth tumor annotations available
-- Threshold-based tumor detection may miss subtle lesions
-- Lungmask model may fail on some scans (handled via fallback)
+- No ground-truth tumor masks available
+- Tumor detection based on simple intensity thresholding
+- lungmask model may fail on some scans
 - Limited dataset size due to hardware constraints
 
 ---
@@ -111,3 +147,41 @@ Example output:
 ---
 
 ## 📁 Project Structure
+```
+nsclc-pet-analysis/
+├── notebooks/
+├── scripts/
+├── outputs/
+└── README.md
+```
+
+---
+
+## 🚀 Key Takeaways
+
+- Built a **robust end-to-end medical imaging pipeline**
+- Successfully handled:
+  - messy DICOM data
+  - model failures
+  - hardware limitations
+- Demonstrated:
+  - segmentation techniques
+  - quantitative PET analysis
+  - medical data visualization
+
+---
+
+## 🔮 Future Work
+
+- Radiomics feature extraction (PyRadiomics)
+- Improved tumor detection (region-based methods)
+- Integration of CT + PET information
+- Machine learning classification
+
+---
+
+## 📄 References
+
+- TCIA NSCLC Radiogenomics Dataset  
+- lungmask segmentation model  
+- PET imaging literature  
