@@ -80,17 +80,8 @@ Mean:        0.41
 
 Example histogram:
 
-<img src="outputs/figures/R01-001_histogram.png" width="400">
-
 <p align="center">
-  <img src="outputs/figures/R01-001_histogram.png" width="400">
-</p>
-
-![Histogram](outputs/figures/R01-001_histogram.png)
-
-<p align="center">
-  <img src="outputs/figures/R01-001_histogram.png" width="400">
-  <img src="outputs/figures/R01-001_overlay.png" width="400">
+  <img src="outputs/figures/R01-001_histogram.png" width="500">
 </p>
 
 ### 4. Tumor Candidate Detection
