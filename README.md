@@ -73,9 +73,9 @@ This step allows:
 
 Example output:
 ```
-Min: 0.0
-Max: 84629.29
-Mean: 0.41
+Min:          0.0
+Max:     84629.29
+Mean:        0.41
 ```
 
 Example histogram:
@@ -93,9 +93,10 @@ The threshold is derived from:
 - lung-only voxel distribution (preferred)  
 - global intensity distribution (fallback)  
 
+
 Example:
 ```
-Threshold: 0.39
+Threshold:      0.39
 ```
 
 
@@ -137,7 +138,7 @@ Example output:
 ```
 | Patient | Tumor_Volume_voxels | Max_Intensity | Mean_Intensity |
 | ------- | ------------------- | ------------- | -------------- |
-| R01-001 | 1363730             | 1.0           | 0.142992       |
+| R01-001 |       1363730       |      1.0      |    0.142992    |
 ```
 
 ### Observations
