@@ -79,7 +79,9 @@ Mean:        0.41
 ```
 
 Example histogram:
-
+```HTML
+<img src="outputs/figures/R01-001_histogram.png" width="100">
+```
 ![Histogram](outputs/figures/R01-001_histogram.png)
 
 
