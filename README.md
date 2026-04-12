@@ -15,7 +15,7 @@ Due to the absence of ground-truth tumor annotations, the project is framed as:
 
 Radiomics analysis of automatically detected high-intensity tumor candidate regions.
 
-## 🧭 Pipeline Overview
+## Pipeline Overview
 
 The figure below summarizes the full computational workflow:
 ![Example](outputs/figures/diagram.png) 
@@ -66,7 +66,7 @@ Example:
 This ensures a robust and fully automated pipeline.
 
 
-### 🆕 3. Intensity Analysis (Exploratory Step)
+### 3. Intensity Analysis
 
 Before tumor detection, PET intensity distributions were analyzed to better understand the data:
 
