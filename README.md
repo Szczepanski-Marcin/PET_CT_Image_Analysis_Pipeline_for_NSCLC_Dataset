@@ -4,14 +4,22 @@
 
 This project presents a computational pipeline for **lung segmentation, tumor candidate detection, and quantitative PET analysis** using the NSCLC Radiogenomics dataset.
 
-The objective is to simulate a real-world medical imaging workflow, focusing on:
+The workflow simulates a real-world medical imaging pipeline, focusing on:
+
 - automated processing of DICOM data  
-- robust segmentation under imperfect conditions  
+- robust lung segmentation under imperfect conditions  
+- intensity-driven tumor candidate detection  
 - extraction of clinically relevant PET-derived metrics  
 
-Due to the absence of ground-truth tumor annotations, the project is framed as:   
-Radiomics analysis of automatically detected high-intensity tumor candidate regions   
-![Example](outputs/figures/diagram.png) 
+Due to the absence of ground-truth tumor annotations, the project is framed as:
+
+Radiomics analysis of automatically detected high-intensity tumor candidate regions.
+
+## 🧭 Pipeline Overview
+
+The figure below summarizes the full computational workflow:
+
+![Pipeline Diagram](outputs/figures/pipeline.png)
 
 ## Background
 
