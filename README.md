@@ -160,7 +160,7 @@ Detected regions should be interpreted as:
 
 Example segmentation output:
  
-![Example](outputs/figures/R01-018_overlay.png)   
+![Example](outputs/figures/R01-018_slice_289_pipeline.png)   
 
 
 ## Limitations  
