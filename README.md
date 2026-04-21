@@ -99,8 +99,6 @@ These features support **exploratory radiomics-style analysis**..
 
 ### 7. Visualization
 
-### 7. Visualization
-
 The pipeline generates multi-panel visual outputs to illustrate key processing stages:
 
 - CT slice (anatomical reference)  
@@ -110,8 +108,8 @@ The pipeline generates multi-panel visual outputs to illustrate key processing s
 
 These components are combined into a single subplot to provide an overview of intermediate processing steps and data transformation.
 
-### Example Pipeline Visualization
-
+### Example Pipeline Visualization  
+Example segmentation output:  
 ![Example](outputs/figures/R01-018_slice_289_pipeline.png) 
 
 All generated outputs are automatically saved:
@@ -172,10 +170,6 @@ Therefore, detected regions should be interpreted as:
 
 Overall, the pipeline demonstrates how combined PET/CT analysis can support exploratory investigation of metabolic activity patterns in lung imaging data.
 
-
-## Visualization
-
-Example segmentation output:
  
   
 
