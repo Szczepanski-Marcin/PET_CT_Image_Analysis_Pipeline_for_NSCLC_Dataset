@@ -92,7 +92,7 @@ From detected regions, the following metrics are extracted:
 - Region volume (voxel count)  
 - Maximum PET intensity  
 - Mean PET intensity  
-- Relative tumor burden (voxel ratio)  
+- Relative high-uptake region burden (voxel ratio)  
 
 These features support **exploratory radiomics-style analysis**. 
 
@@ -133,9 +133,9 @@ The figure below presents the final output of the pipeline, combining anatomical
 
 ### Example output:
 ```
-| Patient | Tumor_Volume | Max_Intensity | Mean_Intensity |
-| ------- | ------------ | ------------- | -------------- |
-| R01-018 |   353,407    |     522.07    |      84.21     |
+| Patient | Uptake_Volume | Uptake_Ratio | Max_Intensity | Mean_Intensity |
+| ------- | ------------ | ----------- | ------------- | -------------- |
+| R01-018 |   353,407    |   0.00161   |     522.07    |     84.21      |
 ```
 
 ### Observations
